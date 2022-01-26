@@ -7,12 +7,12 @@ pkgver=r17137.ff0605cb2
 pkgrel=1
 pkgdesc="Church presentation software."
 arch=('any')
-url='http://openlp.org/'
+url='https://openlp.org/'
 license=('GPL3')
 provides=('openlp')
 conflicts=('openlp')
 makedepends=('qt5-tools' 'git')
-depends=('python>=3.9' 'python<3.11' 'python-pyqt5'
+depends=('python>=3.9' 'python<3.11' 'python-pyqt5' 'python-pip'
          'python-chardet' 'python-lxml' 'python-six'
          'python-beautifulsoup4' 'python-pyenchant' 'python-dbus'
          'python-alembic' 'mediainfo' 'qt5-multimedia' 'python-zeroconf'
@@ -29,12 +29,8 @@ source=('git+https://gitlab.com/openlp/openlp.git' 'openlp.sh')
 sha256sums=('SKIP'
             '19c2f3c622585bf308efc259013fb5518feaf8cf14b51613e1e71778fcc2e8cf')
             
-pkgver() {
-  cd "$pkgname"
-  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-}
-
 prepare() {
+    pip install wheel
     cd "$_pkgbase"
     #patch --forward --strip=1 --input="${srcdir}/dbus.patch"
 }
